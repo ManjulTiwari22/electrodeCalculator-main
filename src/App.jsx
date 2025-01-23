@@ -1,10 +1,11 @@
-import React from "react";
+/* eslint-disable react/no-unknown-property */
+import "react";
 import WeldingCalculator from "./components/WeldingCalculator";
 import Navbar from "./components/Navbar";
 import Header from "./components/Headers";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, } from "react-router-dom";
 import WeildingCalculatorResult from "./components/WeildingCalculatorResult";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 const Home = () => (
   <div>
     <h2>Welcome to the Home Page</h2>

@@ -4,25 +4,25 @@ import { useState, useEffect } from "react"
 
 // Constants for metal deposition per electrode
 const METAL_DEPOSITION = {
-  "IS 2062 GR.B": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SA 516 GR.60": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SA 516 GR.65": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SA 516 GR.70": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SA 387 GR11 CL2": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SA537 CL-1": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SA 240 GR.304L": { 3.15: 0.0189, "4.00": 0.0299 },
-  "SA 240 GR.304": { 3.15: 0.0189, "4.00": 0.0299 },
-  "SA 240 GR.316": { 3.15: 0.0189, "4.00": 0.0299 },
-  "SA 240 GR.316L": { 3.15: 0.0189, "4.00": 0.0299 },
-  "SA 240 GR.317L": { 3.15: 0.0189, "4.00": 0.0299 },
-  "SA 240 GR.321": { 3.15: 0.0189, "4.00": 0.0299 },
-  "SA 240 UNS 32205": { 3.15: 0.0181, "4.00": 0.0292 },
-  "SA 240 UNS 31803": { 3.15: 0.0181, "4.00": 0.0292 },
-  "SB424 UNS NO8825": { 3.15: 0.0188, "4.00": 0.0304 },
-  "SA 240 UNS 32750": { 3.15: 0.0182, "4.00": 0.0288 },
-  "SB 127 UNS N04400": { 3.15: 0.0204, "4.00": 0.0331 },
-  "SB 168 UNS N06600": { 3.15: 0.0196, "4.00": 0.0317 },
-}
+  "IS 2062 GR.B": { 3.15: 0.0182, "4.00": 0.0288, density: 7.85 },
+  "SA 516 GR.60": { 3.15: 0.0182, "4.00": 0.0288, density: 7.85 },
+  "SA 516 GR.65": { 3.15: 0.0182, "4.00": 0.0288, density: 7.85 },
+  "SA 516 GR.70": { 3.15: 0.0182, "4.00": 0.0288, density: 7.85 },
+  "SA 387 GR11 CL2": { 3.15: 0.0182, "4.00": 0.0288, density: 7.85 },
+  "SA537 CL-1": { 3.15: 0.0182, "4.00": 0.0288, density: 7.85 },
+  "SA 240 GR.304L": { 3.15: 0.0189, "4.00": 0.0299, density: 8.0 },
+  "SA 240 GR.304": { 3.15: 0.0189, "4.00": 0.0299, density: 8.0 },
+  "SA 240 GR.316": { 3.15: 0.0189, "4.00": 0.0299, density: 8.0 },
+  "SA 240 GR.316L": { 3.15: 0.0189, "4.00": 0.0299, density: 8.0 },
+  "SA 240 GR.317L": { 3.15: 0.0189, "4.00": 0.0299, density: 8.0 },
+  "SA 240 GR.321": { 3.15: 0.0189, "4.00": 0.0299, density: 8.0 },
+  "SA 240 UNS 32205": { 3.15: 0.0181, "4.00": 0.0292, density: 7.8 },
+  "SA 240 UNS 31803": { 3.15: 0.0181, "4.00": 0.0292, density: 7.8 },
+  "SB424 UNS NO8825": { 3.15: 0.0188, "4.00": 0.0304, density: 8.14 },
+  "SA 240 UNS 32750": { 3.15: 0.0182, "4.00": 0.0288, density: 7.8 },
+  "SB 127 UNS N04400": { 3.15: 0.0204, "4.00": 0.0331, density: 8.83 },
+  "SB 168 UNS N06600": { 3.15: 0.0196, "4.00": 0.0317, density: 8.47 },
+};
 
 // Helper functions
 const calculateWidth = (bevelAngle, thickness) => Math.tan(((bevelAngle / 2) * Math.PI) / 180) * thickness
@@ -215,14 +215,14 @@ const WeldingCalculator = () => {
       id: 1000,
       od: 50,
       length: 2000,
-      density: 7.85,
+      density: METAL_DEPOSITION["SA 516 GR.70"].density, // Fetch density dynamically
       rootFace: 1,
       radius: 5,
       filletSize: 5,
       numCircSeams: 2,
       numLongSeams: 1,
       numNozzles: 4,
-    }
+    };
 
     // Calculate weld depositions
     let totalCircDeposition = 0
@@ -295,7 +295,7 @@ const WeldingCalculator = () => {
       electrodeConsumption,
       sawConsumption,
     })
-  }, [])
+  }, [formData])
 
   return (
 <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
